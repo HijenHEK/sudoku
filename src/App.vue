@@ -1,15 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <sudokuNav />
+
+  <sudokuGrid />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import sudokuGrid from './components/sudokuGrid.vue'
+import sudokuNav from './components/sudokuNav.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    sudokuGrid,
+    sudokuNav
   }
 }
 </script>
