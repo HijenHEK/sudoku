@@ -1,5 +1,8 @@
 # sudoku-project
 
+## this is an assignment to Sesame university
+please follow these command to run the development environment correctly . 
+
 ## Project setup
 ```
 npm install
