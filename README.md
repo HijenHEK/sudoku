@@ -1,7 +1,9 @@
 # sudoku-project
 
-## this is an assignment to Sesame university
+## this is an assignment For Sesame university
 please follow these command to run the development environment correctly . 
+
+i used sudoku generator from https://github.com/dachev/sudoku
 
 ## Project setup
 ```
