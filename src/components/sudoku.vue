@@ -133,9 +133,6 @@
 				if (this.isGameComplete()) {
 					const msg = [
 						'Success!',
-						'',
-						`Difficulty: ${ this.levels[ this.difficulty ] }`,
-						`Time: ${ this.formattedTime }`
 					]
 
 					alert(msg.join('\n'))
