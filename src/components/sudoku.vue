@@ -1,18 +1,12 @@
 <template>
 	<div class="sudoku">
 		<div>
-			<h2>Sudoku</h2>
-
+			
 			<!-- <strong>{{ formattedTime }}</strong> -->
+			<button class="navbtn" @click="generatePuzzle()">Abother one</button>
 
-			<!-- <select v-model="difficulty" @change="generatePuzzle()">
-        <option
-          v-for="(display, level) in levels" :key="level"
-          :value="level"
-        >
-          {{ display }}
-        </option>
-      </select> -->
+			<button  class="navbtn" @click="help(activeRow,activeCol)" :disabled="activeRow === -1 || activeCol === -1">help?</button> 
+        
 		</div>
 
 		<table>
@@ -38,6 +32,16 @@
 				@click="setCellValue(value + 1)">
 			{{ value + 1 }}
 		</button>
+		<button
+				type="button"
+				class="btn"
+				:disabled="(activeRow === -1 || activeCol === -1)"
+				@click="resetCell(activeRow,activeCol)">
+			-
+		</button>
+
+
+
     </div>
 
 	</div>
@@ -72,58 +76,40 @@
 				difficulty: 'easy',
 				activeRow: -1,
 				activeCol: -1,
-				levels: {
-					'easy': 'Easy',
-					'medium': 'Medium',
-					'hard': 'Hard',
-					'very-hard': 'Very Hard',
-					'insane': 'Insane',
-					'inhuman': 'Inhuman'
-				},
-				seconds: 0,
-				timer: null
+				solution : [],
+				
 			}
 		},
 		mounted() {
 			this.generatePuzzle()
 		},
-		computed: {
-			formattedTime() {
-				let min = Math.floor(this.seconds / 60)
-				let sec = this.seconds % 60
-
-				if (min < 10) {
-					min = `0${min}`
-				}
-
-				if (sec < 10) {
-					sec = `0${sec}`
-				}
-
-				return `${min}:${sec}`
-			}
-		},
+		
 		methods: {
 			generatePuzzle() {
 				const rawGrid = sudoku.makepuzzle();
-				// const rawSolution = sudoku.solvepuzzle(rawGrid);
+				
+				const rawSolution = sudoku.solvepuzzle(rawGrid);
 
 				this.puzzle = generateGrid(rawGrid);
-				console.log(this.puzzle);
-				// .map(row => {
-				//   return row.map(cell => {
-				//     return {
-				//       value: cell !== '.' ? parseInt(cell) : null,
-				//       original: cell !== '.'
-				//     }
-				//   })
-				// })
+				this.solution = generateGrid(rawSolution);
+				this.default = this.puzzle 
+				this.activeRow = -1
+				this.activeCol = -1
+				return
 
-				//   this.seconds = 0
-				//   clearInterval(this.timer)
-				//   this.timer = setInterval(() => {
-				//     this.seconds += 1
-				//   }, 1000)
+			},
+			
+			help(r,c){
+				this.puzzle[r][c] = this.solution[r][c]
+				this.activeRow = -1
+				this.activeCol = -1
+				return
+			},
+			resetCell(r,c) {
+				this.puzzle[r][c].value = '' 
+				this.activeRow = -1
+				this.activeCol = -1
+				return
 			},
 			setCellActive(row, col, original) {
 				if (original) {
@@ -209,23 +195,26 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		
 	}
 
 	.cell {
-		width: 40px;
-		height: 40px;
+		width: 35px;
+		height: 35px;
 		box-sizing: border-box;
 		
 		font-size: 24px;
-		line-height: 40px;
 		text-align: center;
 
 		cursor: default;
+		border-radius: 2px;
+		box-shadow: 0 0 1px #00c;
 	}
 
 	
 	.cell.original {
 		font-weight: bold;
+		background-color: beige ;
 	}
 
 	.cell:not(.original) {
@@ -233,7 +222,7 @@
 	}
 
 	.cell.active {
-		background-color: #00c !important;
+		background-color: #7ba3c9 !important;
 		color: #fff;
 	}
 
@@ -243,8 +232,8 @@
 	}
 
 	.btn {
-		width: 38px;
-		height: 38px;
+		width: 30px;
+		height: 30px;
 		font-size: 24px;
 		color: #fff;
 		background-color: #343a40;
@@ -255,6 +244,8 @@
 	
 	.btn:disabled {
 		cursor: not-allowed;
+		opacity: 0.3;
+		
 	}
 	.btn:hover {
 		background-color: #343a60;
@@ -270,8 +261,9 @@
 	table {
 		margin: 10px;
 		width: 100%;
-		max-width: 420px;
+		max-width: 400px;
 		margin: 0.5rem auto;
+		box-shadow: 0 0 3px rgb(73, 73, 192);
 
 		font-family: Arial, Helvetica, sans-serif;
 	}
@@ -309,5 +301,21 @@
 
 	input:hover {
 		background: #eee;
+	}
+	.navbtn {
+
+		cursor: pointer;
+		padding: 5px  10px;
+		background-color: #343a60;
+		color: white;
+		border-radius: 10px ;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		margin: 0 10px;
+	}
+	.navbtn:disabled {
+		cursor: not-allowed;
+
+		opacity: 0.3;
 	}
 </style>

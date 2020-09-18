@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <nav>
+      <h2>Sudoku mini-project</h2>
+		<img src="./assets/logo.png" alt="" srcset="">
+    </nav>
     <sudoku />
   </div>
 </template>
@@ -15,14 +19,31 @@ export default {
 </script>
 
 
-<style scope>
+<style scoped >
   * {
 		box-sizing: border-box;
 	}
 
   #app {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px ;
+    margin-right: 40px ;  
+
+  }
+  img {
+    height: 30px;
   }
 </style>
