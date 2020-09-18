@@ -1,29 +1,28 @@
 <template>
-  <sudokuNav />
-
-  <sudokuGrid />
+  <div id="app">
+    <sudoku />
+  </div>
 </template>
 
 <script>
-import sudokuGrid from './components/sudokuGrid.vue'
-import sudokuNav from './components/sudokuNav.vue'
-
+import sudoku from './components/sudoku.vue'
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    sudokuGrid,
-    sudokuNav
+    sudoku
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+<style scope>
+  * {
+		box-sizing: border-box;
+	}
+
+  #app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
